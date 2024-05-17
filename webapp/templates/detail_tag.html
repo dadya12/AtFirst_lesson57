@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ task.id }}{% endblock %}
+
+{% block navbar %}
+    <span style="color: white; margin-top: 5px; margin-right: 16px">|</span>
+    <a class="navbar-brand" href="{% url 'home' %}">Tag Page</a>
+    <span style="color: white; margin-top: 5px; margin-right: 16px">|</span>
+{% endblock %}
+
+{% block h1 %}<h1 style="text-align: center; margin-bottom: 50px; margin-top: 50px">More about it:</h1>{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="card text-bg-dark mb-3" style="max-width: 18rem;">
+            <div class="card-header">{{ tag.summary }}</div>
+            <div class="card-body">
+                <h5 class="card-title">Description: {{ tag.description }}</h5>
+                <p class="card-text">Status: 
+                {% for status in tag.status.all %}
+                {{ status.name }}{% if forloop.last %}.{% else %},{% endif %}
+                {% endfor %}
+                </p>
+                <p class="card-text">Type: 
+                {% for type in tag.type.all %}
+                {{ type.name }}{% if forloop.last %}.{% else %},{% endif %}
+                {% endfor %}
+                </p>
+                <p class="card-text">{{ tag.created_at }}</p>
+                <div class="card-footer">
+                <a href="{% url 'update' tag.pk %}"
+                       style="text-decoration: none; color: white">Update data</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

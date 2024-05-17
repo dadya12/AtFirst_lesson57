@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Tasks{% endblock %}
+
+{% block navbar %}
+    <span style="color: white; margin-top: 5px; margin-right: 16px">|</span>
+    <a class="navbar-brand" href="{% url 'create' %}">Create Tag</a>
+    <span style="color: white; margin-top: 5px; margin-right: 16px">|</span>
+{% endblock %}
+
+{% block h1 %}<h1 style="text-align: center; margin-bottom: 50px; margin-top: 50px">Your Tags:</h1>{% endblock %}
+
+{% block content %}
+    {% for t in tag %}
+        <div class="container">
+            <div class="card text-bg-dark mb-3" style="max-width: 18rem;">
+                <div class="card-header">{{ t.summary }}</div>
+                <div class="card-body">
+                    <h5 class="card-title">Description: {{ t.description }}</h5>
+                    <div class="card-footer">
+                        <a href="{% url 'detail' t.pk %}"
+                           style="text-decoration: none; color: white">More About...</a>
+                        <a href="{% url 'delete' t.pk %}"
+                           style="text-decoration: none; color: white; margin-left: 40px">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
