@@ -14,7 +14,7 @@ class HomeView(TemplateView):
 
 
 class TagView(TemplateView):
-    template_name = 'detail_tag.html'
+    template_name = 'tags/detail_tag.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -24,7 +24,7 @@ class TagView(TemplateView):
 
 class TagCreateView(FormView):
     form_class = TagForms
-    template_name = 'tag_create.html'
+    template_name = 'tags/tag_create.html'
 
     def form_valid(self, form):
         types = form.cleaned_data.pop('type')
@@ -40,7 +40,7 @@ class TagCreateView(FormView):
 
 class TagUpdateView(FormView):
     form_class = TagForms
-    template_name = 'tag_update.html'
+    template_name = 'tags/tag_update.html'
 
     def dispatch(self, request, *args, **kwargs):
         self.tag = self.get_object()
@@ -72,7 +72,7 @@ class TagUpdateView(FormView):
 class TagDeleteView(View):
     def get(self, request, *args, **kwargs):
         tag = get_object_or_404(Tag, pk=kwargs.get('pk'))
-        return render(request, 'tag_delete.html', {'tag': tag})
+        return render(request, 'tags/tag_delete.html', {'tag': tag})
 
     def post(self, request, *args, **kwargs):
         tag = get_object_or_404(Tag, pk=kwargs.get('pk'))
