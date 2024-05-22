@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ task.id }}{% endblock %}
+
+{% block navbar %}
+    <span style="color: white; margin-top: 5px; margin-right: 16px">|</span>
+    <a class="navbar-brand" href="{% url 'home' %}">Projects Page</a>
+    <span style="color: white; margin-top: 5px; margin-right: 16px">|</span>
+    <a class="navbar-brand" href="{% url 'tag_create' pk=projects.pk %}">Create Tag</a>
+{% endblock %}
+
+{% block h1 %}<h1 style="text-align: center; margin-bottom: 50px; margin-top: 50px">More about it:</h1>{% endblock %}
+
+{% block content %}
+    <div class="container" style="text-align: center; margin-left: 493px">
+        <div class="card text-bg-dark mb-3" style="max-width: 18rem;">
+            <div class="card-header" style="padding: 20px 20px">Summary: {{ projects.name }}</div>
+            <div class="card-body">
+                <h5 class="card-title" style="padding: 20px 20px">Description: {{ projects.description }}</h5>
+                <p class="card-text" style="padding: 20px 20px">Created At: {{ projects.created_at }}</p>
+                <p class="card-text" style="padding: 20px 20px">Updated At: {{ projects.updated_at }}</p>
+                <div class="card-footer">
+                    <a href="{% url 'update_project' projects.pk %}"
+                       style="text-decoration: none; color: white">Update data...</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <center><h1 style="margin-top: 50px; margin-bottom: 50px">Your Tags:</h1></center>
+
+    <div class="row row-cols-3 mt-2">
+        {% for t in projects.tags.all %}
+            <div class="col" style="margin-bottom: 50px">
+                <div class="card">
+                    <div class="card-body" style="border: solid 2px; border-radius: 10px">
+                        <h5 class="card-title">Summary: {{ t.summary }} <a href="{% url 'tag_detail' t.pk %}" style="color: black; margin-left: 150px; font-size: 30px"><i
+                                class="bi bi-info-circle-fill"></i></a></h5>
+                        <p class="card-text">Description: {{ t.description }}</p>
+                        <p class="card-text">Status:
+                            {% for status in t.status.all %}
+                                {{ status.name }}{% if forloop.last %}.{% else %},{% endif %}
+                            {% endfor %}
+                        </p>
+                        <p class="card-text">Type:
+                            {% for type in t.type.all %}
+                                {{ type.name }}{% if forloop.last %}.{% else %},{% endif %}
+                            {% endfor %}
+                        </p>
+                        <p class="card-text">{{ t.created_at }}</p>
+                        <p class="card-text">{{ t.updated_at }}</p>
+                        <div class="card-footer bg-dark">
+                            <a href="{% url 'tag_update' t.pk %}"
+                               style="text-decoration: none; color: white">Update data...</a>
+                            <a href="{% url 'tag_delete' t.pk %}"
+                               style="text-decoration: none; color: white; margin-left: 196px">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

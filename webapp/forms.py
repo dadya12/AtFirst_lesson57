@@ -1,23 +1,37 @@
 from django import forms
 from django.forms import widgets
 
-from webapp.models import Type, Status
+from webapp.models import Tag, Projects
 
 
-class TagForms(forms.Form):
-    summary = forms.CharField(label='Краткое описание', max_length=100, required=True)
-    description = forms.CharField(label='Описание', max_length=400, required=False, widget=widgets.Textarea())
-    status = forms.ModelMultipleChoiceField(queryset=Status.objects.all(), label='Статус', required=True)
-    type = forms.ModelMultipleChoiceField(queryset=Type.objects.all(), label='Тип', required=True)
+class TagForms(forms.ModelForm):
+    class Meta:
+        model = Tag
+        fields = ['summary', 'description', 'status', 'type']
+        widgets = {
+            'type': forms.CheckboxSelectMultiple,
+            'status': forms.CheckboxSelectMultiple}
+        error_messages = {
+            'summary': {
+                'required': 'Please enter',
+                'min_length': 'So short'
+            }
+        }
 
-    def clean_summary(self):
-        summary = self.cleaned_data['summary']
-        if len(summary) < 5:
-            raise forms.ValidationError('Слишком короткий')
-        return summary
+    def clean(self):
+        cleaned_data = super().clean()
+        summary = cleaned_data.get('summary')
+        description = cleaned_data.get('description')
+        if summary == description:
+            raise forms.ValidationError('Summary and Description same')
+        return cleaned_data
 
-    def clean_description(self):
-        description = self.cleaned_data['description']
-        if len(description) < 30:
-            raise forms.ValidationError('Слишком кароткий')
-        return description
+
+class ProjectForm(forms.ModelForm):
+    class Meta:
+        model = Projects
+        fields = ['name', 'description']
+
+
+class SearchForm(forms.Form):
+    search = forms.CharField(max_length=150, required=False, label='Search')

@@ -4,8 +4,9 @@
 
 {% block navbar %}
     <span style="color: white; margin-top: 5px; margin-right: 16px">|</span>
-    <a class="navbar-brand" href="{% url 'home' %}">Tag Page</a>
+    <a class="navbar-brand" href="{% url 'home' %}">Projects Page</a>
     <span style="color: white; margin-top: 5px; margin-right: 16px">|</span>
+    <a class="navbar-brand" href="{% url 'detail_project' pk=tag.project.pk %}">Projects Page</a>
 {% endblock %}
 
 {% block h1 %}<h1 style="text-align: center; margin-bottom: 50px; margin-top: 50px">More about it:</h1>{% endblock %}
@@ -27,8 +28,9 @@
                 {% endfor %}
                 </p>
                 <p class="card-text">{{ tag.created_at }}</p>
+                <p class="card-text">{{ tag.updated_at }}</p>
                 <div class="card-footer">
-                <a href="{% url 'update' tag.pk %}"
+                <a href="{% url 'tag_update' tag.pk %}"
                        style="text-decoration: none; color: white">Update data</a>
                 </div>
             </div>

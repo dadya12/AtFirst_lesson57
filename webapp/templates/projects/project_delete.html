@@ -1,20 +1,22 @@
 {% extends 'base.html' %}
 
-{% block title %}Create Category{% endblock %}
+{% block title %}Project Delete{% endblock %}
 
 {% block navbar %}
     <span style="color: white; margin-top: 5px; margin-right: 16px">|</span>
     <a class="navbar-brand" href="{% url 'home' %}">Projects Page</a>
     <span style="color: white; margin-top: 5px; margin-right: 16px">|</span>
+    <a class="navbar-brand" href="{% url 'create_project' %}">Project Create</a>
+    <span style="color: white; margin-top: 5px; margin-right: 16px">|</span>
 {% endblock %}
 
 {% block content %}
-    <center><h1 style="margin-top: 50px; margin-bottom: 50px">Delete Tag?</h1></center>
+    <center><h1 style="margin-top: 50px; margin-bottom: 50px">Delete Project?</h1></center>
     <div style="text-align: center">
         <form method="post" action="">
             {% csrf_token %}
             <button type="submit" class="btn btn-danger">Yes</button>
-            <a href="{% url 'detail_project' pk=tag.project.pk %}" class="btn btn-success" role="button">Not</a>
+            <a href="{% url 'home' %}" class="btn btn-success" role="button">Not</a>
         </form>
     </div>
 {% endblock %}

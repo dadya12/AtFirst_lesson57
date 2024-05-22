@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
-{% block title %}Create Task{% endblock %}
+{% block title %}Update Tag{% endblock %}
 
 {% block navbar %}
     <span style="color: white; margin-top: 5px; margin-right: 16px">|</span>
-    <a class="navbar-brand" href="{% url 'home' %}">Tag Page</a>
+    <a class="navbar-brand" href="{% url 'home' %}">Projects Page</a>
     <span style="color: white; margin-top: 5px; margin-right: 16px">|</span>
     
 {% endblock %}
@@ -13,6 +13,6 @@
 
 {% block content %}
 <form method="post">
-    {% include 'partial/tag_form.html' with value_submit='Добавить' %}
+    {% include 'partial/tag_project_form.html' with value_submit='Добавить' %}
 </form>
 {% endblock %}

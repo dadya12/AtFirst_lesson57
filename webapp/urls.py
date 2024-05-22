@@ -1,9 +1,15 @@
 from django.urls import path
-from webapp.views import HomeView, TagView, TagCreateView, TagUpdateView, TagDeleteView
+from webapp.templates.tag_views.views import TagCreate, TagUpdate, TagDetail, TagDelete
+from webapp.templates.project_views.views import IndexView, ProjectDetail, ProjectCreate, ProjectUpdate, ProjectDelete
 urlpatterns = [
-    path('', HomeView.as_view(), name='home'),
-    path('tag/<int:pk>/', TagView.as_view(), name='detail'),
-    path('tag/create/', TagCreateView.as_view(), name='create'),
-    path('tag/<int:pk>/update/', TagUpdateView.as_view(), name='update'),
-    path('tag/<int:pk>/delete/', TagDeleteView.as_view(), name='delete'),
+    path('', IndexView.as_view(), name='home'),
+    path('project/<int:pk>/', ProjectDetail.as_view(), name='detail_project'),
+    path('project/create/', ProjectCreate.as_view(), name='create_project'),
+    path('project/<int:pk>/update', ProjectUpdate.as_view(), name='update_project'),
+    path('project/<int:pk>/delete/', ProjectDelete.as_view(), name='delete_project'),
+    path('project/<int:pk>/create/tag', TagCreate.as_view(), name='tag_create'),
+    path('project/<int:pk>/update/tag', TagUpdate.as_view(), name='tag_update'),
+    path('project/<int:pk>/detail/tag', TagDetail.as_view(), name='tag_detail'),
+    path('project/<int:pk>/delete/tag', TagDelete.as_view(), name='tag_delete')
+
 ]
