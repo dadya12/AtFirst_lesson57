@@ -8,7 +8,7 @@ class Tag(models.Model):
     type = models.ManyToManyField('webapp.Type', related_name='tags', blank=True, verbose_name='Тип')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Время обновления')
-    project = models.ForeignKey('webapp.Projects', on_delete=models.PROTECT, related_name='tags', verbose_name='Проект')
+    project = models.ForeignKey('webapp.Projects', on_delete=models.CASCADE, related_name='tags', verbose_name='Проект')
 
 
 class Projects(models.Model):
