@@ -10,6 +10,8 @@ class Tag(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Время обновления')
     project = models.ForeignKey('webapp.Projects', on_delete=models.CASCADE, related_name='tags', verbose_name='Проект')
 
+    def __str__(self):
+        return f'{self.summary}'
 
 class Projects(models.Model):
     name = models.CharField(max_length=100, verbose_name='Название')
