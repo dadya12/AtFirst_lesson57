@@ -13,6 +13,7 @@ class Tag(models.Model):
     def __str__(self):
         return f'{self.summary}'
 
+
 class Projects(models.Model):
     name = models.CharField(max_length=100, verbose_name='Название')
     description = models.TextField(max_length=400, verbose_name='Описание')
