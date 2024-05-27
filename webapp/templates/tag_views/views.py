@@ -11,7 +11,7 @@ class TagCreate(CreateView):
     form_class = TagForms
 
     def get_success_url(self):
-        return reverse('detail_project', kwargs={'pk': self.object.projects.pk})
+        return reverse('webapp:detail_project', kwargs={'pk': self.object.projects.pk})
 
     def form_valid(self, form):
         projects = get_object_or_404(Projects, pk=self.kwargs.get('pk'))
@@ -19,7 +19,7 @@ class TagCreate(CreateView):
         tag.project = projects
         tag.save()
         form.save_m2m()
-        return redirect('detail_project', pk=projects.pk)
+        return redirect('webapp:detail_project', pk=projects.pk)
 
 
 class TagUpdate(UpdateView):
@@ -28,7 +28,7 @@ class TagUpdate(UpdateView):
     template_name = 'tags/tag_update.html'
 
     def get_success_url(self):
-        return reverse('tag_detail', kwargs={'pk': self.object.pk})
+        return reverse('webapp:tag_detail', kwargs={'pk': self.object.pk})
 
 
 class TagDetail(DetailView):
@@ -41,5 +41,5 @@ class TagDelete(DeleteView):
     template_name = 'tags/tag_delete.html'
 
     def get_success_url(self):
-        return reverse('home')
+        return reverse('webapp:home')
 

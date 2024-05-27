@@ -4,7 +4,7 @@
 
 {% block navbar %}
     <span style="color: white; margin-top: 5px; margin-right: 16px">|</span>
-    <a class="navbar-brand" href="{% url 'home' %}">Projects Page</a>
+    <a class="navbar-brand" href="{% url 'webapp:home' %}">Projects Page</a>
     <span style="color: white; margin-top: 5px; margin-right: 16px">|</span>
 {% endblock %}
 
@@ -14,7 +14,7 @@
         <form method="post" action="">
             {% csrf_token %}
             <button type="submit" class="btn btn-danger">Yes</button>
-            <a href="{% url 'detail_project' pk=tag.project.pk %}" class="btn btn-success" role="button">Not</a>
+            <a href="{% url 'webapp:detail_project' pk=tag.project.pk %}" class="btn btn-success" role="button">Not</a>
         </form>
     </div>
 {% endblock %}

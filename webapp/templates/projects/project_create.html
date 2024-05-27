@@ -4,7 +4,7 @@
 
 {% block navbar %}
     <span style="color: white; margin-top: 5px; margin-right: 16px">|</span>
-    <a class="navbar-brand" href="{% url 'home' %}">Projects Page</a>
+    <a class="navbar-brand" href="{% url 'webapp:home' %}">Projects Page</a>
     <span style="color: white; margin-top: 5px; margin-right: 16px">|</span>
     
 {% endblock %}
@@ -12,7 +12,7 @@
 {% block h1 %}<h1 style="text-align: center; margin-bottom: 50px; margin-top: 50px">Create Your Tag:</h1>{% endblock %}
 
 {% block content %}
-<form method="post" action="{% url 'create_project' %}">
+<form method="post" action="{% url 'webapp:create_project' %}">
     {% include 'partial/tag_project_form.html' with value_submit='Добавить' %}
 </form>
 {% endblock %}

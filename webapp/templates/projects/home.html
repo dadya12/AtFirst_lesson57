@@ -4,7 +4,7 @@
 
 {% block navbar %}
     <span style="color: white; margin-top: 5px; margin-right: 16px">|</span>
-    <a class="navbar-brand" href="{% url 'create_project' %}">Create Project</a>
+    <a class="navbar-brand" href="{% url 'webapp:create_project' %}">Create Project</a>
     <span style="color: white; margin-top: 5px; margin-right: 16px">|</span>
 {% endblock %}
 
@@ -28,9 +28,9 @@
                     <p class="card-text">Description: {{ p.description }}</p>
                 </div>
                 <div class="card-footer bg-dark border-primary" style="padding: 20px 20px">
-                    <a href="{% url 'detail_project' p.pk %}"
+                    <a href="{% url 'webapp:detail_project' p.pk %}"
                        style="text-decoration: none; color: white">More About...</a>
-                    <a href="{% url 'delete_project' p.pk %}"
+                    <a href="{% url 'webapp:delete_project' p.pk %}"
                        style="text-decoration: none; color: white; margin-left: 40px">Delete</a>
                 </div>
             </div>

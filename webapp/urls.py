@@ -1,6 +1,9 @@
 from django.urls import path
 from webapp.templates.tag_views.views import TagCreate, TagUpdate, TagDetail, TagDelete
 from webapp.templates.project_views.views import IndexView, ProjectDetail, ProjectCreate, ProjectUpdate, ProjectDelete
+
+app_name = 'webapp'
+
 urlpatterns = [
     path('', IndexView.as_view(), name='home'),
     path('project/<int:pk>/', ProjectDetail.as_view(), name='detail_project'),
