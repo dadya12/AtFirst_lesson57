@@ -3,9 +3,10 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DetailView, DeleteView
 from webapp.models import Tag, Projects
 from webapp.forms import TagForms
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class TagCreate(CreateView):
+class TagCreate(LoginRequiredMixin, CreateView):
     template_name = 'tags/tag_create.html'
     model = Tag
     form_class = TagForms
@@ -22,7 +23,7 @@ class TagCreate(CreateView):
         return redirect('webapp:detail_project', pk=projects.pk)
 
 
-class TagUpdate(UpdateView):
+class TagUpdate(LoginRequiredMixin, UpdateView):
     model = Tag
     form_class = TagForms
     template_name = 'tags/tag_update.html'
@@ -31,12 +32,12 @@ class TagUpdate(UpdateView):
         return reverse('webapp:tag_detail', kwargs={'pk': self.object.pk})
 
 
-class TagDetail(DetailView):
+class TagDetail(LoginRequiredMixin, DetailView):
     model = Tag
     template_name = 'tags/detail_tag.html'
 
 
-class TagDelete(DeleteView):
+class TagDelete(LoginRequiredMixin, DeleteView):
     model = Tag
     template_name = 'tags/tag_delete.html'
 

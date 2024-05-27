@@ -6,6 +6,7 @@ from webapp.forms import SearchForm
 from django.db.models import Q
 from django.utils.http import urlencode
 from webapp.forms import ProjectForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class IndexView(ListView):
@@ -37,12 +38,12 @@ class IndexView(ListView):
         return context
 
 
-class ProjectDetail(DetailView):
+class ProjectDetail(LoginRequiredMixin, DetailView):
     model = Projects
     template_name = 'projects/project_detail.html'
 
 
-class ProjectCreate(CreateView):
+class ProjectCreate(LoginRequiredMixin, CreateView):
     template_name = 'projects/project_create.html'
     model = Projects
     fields = ['name', 'description']
@@ -51,7 +52,7 @@ class ProjectCreate(CreateView):
         return reverse('webapp:detail_project', kwargs={'pk': self.object.pk})
 
 
-class ProjectUpdate(UpdateView):
+class ProjectUpdate(LoginRequiredMixin, UpdateView):
     model = Projects
     form_class = ProjectForm
     template_name = 'projects/project_update.html'
@@ -60,7 +61,7 @@ class ProjectUpdate(UpdateView):
         return reverse('webapp:detail_project', kwargs={'pk': self.object.pk})
 
 
-class ProjectDelete(DeleteView):
+class ProjectDelete(LoginRequiredMixin, DeleteView):
     model = Projects
     template_name = 'projects/project_delete.html'
     success_url = reverse_lazy('webapp:home')
