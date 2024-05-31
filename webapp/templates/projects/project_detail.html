@@ -23,7 +23,18 @@
                 <div class="card-footer">
                     <a href="{% url 'webapp:update_project' projects.pk %}"
                        style="text-decoration: none; color: white">Update data...</a>
+                    <a href="{% url 'webapp:update_user' projects.pk %}"
+                       style="text-decoration: none; color: blue; margin-left: 20px">Update User!</a>
                 </div>
+                <span style="color: white;">
+                    Пользователь:
+                    {% for user in projects.users.all %}
+                        <br>
+                        {{ user.username }}
+                        {% if not forloop.last %},
+                        {% endif %}
+                    {% endfor %}
+                </span>
             </div>
         </div>
     </div>
@@ -35,7 +46,7 @@
             <div class="col" style="margin-bottom: 50px">
                 <div class="card">
                     <div class="card-body" style="border: solid 2px; border-radius: 10px">
-                        <h5 class="card-title">Summary: {{ t.summary }} <a href="{% url 'webapp:tag_detail' t.pk %}" style="color: black; margin-left: 150px; font-size: 30px"><i
+                        <h5 class="card-title">Summary: {{ t.summary }} <a href="{% url 'webapp:tag_detail' t.pk %}" style="color: black; font-size: 30px"><i
                                 class="bi bi-info-circle-fill"></i></a></h5>
                         <p class="card-text">Description: {{ t.description }}</p>
                         <p class="card-text">Status:

@@ -16,9 +16,11 @@
     {% include 'partial/simple_search.html' %}
     </div>
     
+    <div class="container" style="margin-bottom: 50px; align-items: center">
     {% if is_paginated %}
         {% include 'partial/pagination.html' %}
     {% endif %}
+    </div>
     
     {% for p in projects %}
         <div class="container">
@@ -33,6 +35,14 @@
                     <a href="{% url 'webapp:delete_project' p.pk %}"
                        style="text-decoration: none; color: white; margin-left: 40px">Delete</a>
                 </div>
+                <span style="color: white; background-color: green; padding-left: 10px; font-size: 20px; border-radius: 4px">
+                    Пользователь:
+                    {% for user in p.users.all %}
+                        {{ user.username }}
+                        {% if not forloop.last %},
+                        {% endif %}
+                    {% endfor %}
+                </span>
             </div>
         </div>
     {% endfor %}

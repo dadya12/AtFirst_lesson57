@@ -40,7 +40,7 @@ class TagDetail(LoginRequiredMixin, DetailView):
 class TagDelete(LoginRequiredMixin, DeleteView):
     model = Tag
     template_name = 'tags/tag_delete.html'
-
+ 
     def get_success_url(self):
         return reverse('webapp:home')
 
