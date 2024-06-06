@@ -83,6 +83,10 @@ class UpdateUserView(PermissionRequiredMixin, UpdateView):
     context_object_name = 'projects'
     permission_required = 'auth.change_user'
 
+    def has_permission(self):
+        projects = self.get_object()
+        return super().has_permission() and self.request.user in projects.users.all()
+
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)

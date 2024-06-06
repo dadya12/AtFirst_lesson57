@@ -1,5 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect, reverse
-from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404, redirect, reverse
 from django.views.generic import CreateView, UpdateView, DetailView, DeleteView
 from webapp.models import Tag, Projects
 from webapp.forms import TagForms
@@ -13,8 +12,8 @@ class TagCreate(PermissionRequiredMixin, CreateView):
     permission_required = 'webapp.add_tag'
 
     def has_permission(self):
-        project = get_object_or_404(Projects, pk=self.kwargs.get('pk'))
-        return super().has_permission() and self.request.user in project.users.all() or self.request.user == self.get_object().users
+        projects = get_object_or_404(Projects, pk=self.kwargs.get('pk'))
+        return super().has_permission() and self.request.user in projects.users.all()
 
     def get_success_url(self):
         return reverse('webapp:detail_project', kwargs={'pk': self.object.projects.pk})
@@ -34,6 +33,10 @@ class TagUpdate(PermissionRequiredMixin, UpdateView):
     template_name = 'tags/tag_update.html'
     permission_required = 'webapp.change_tag'
 
+    def has_permission(self):
+        tag = self.get_object()
+        return super().has_permission() and self.request.user in tag.project.users.all()
+
     def get_success_url(self):
         return reverse('webapp:tag_detail', kwargs={'pk': self.object.pk})
 
@@ -47,6 +50,10 @@ class TagDelete(PermissionRequiredMixin, DeleteView):
     model = Tag
     template_name = 'tags/tag_delete.html'
     permission_required = 'webapp.delete_tag'
+
+    def has_permission(self):
+        tag = self.get_object()
+        return super().has_permission() and self.request.user in tag.project.users.all()
 
     def get_success_url(self):
         return reverse('webapp:home')
